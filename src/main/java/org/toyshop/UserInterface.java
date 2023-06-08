@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
-    private static final String FILE_NAME = "obj.txt";
+    private static final String FILE_NAME = "";
     public static Scanner scanner = new Scanner(System.in);
     private final List<String> helpInput = Arrays.asList("help", "h", "?", "помощь", "справка");
     private final List<String> quitInput = Arrays.asList("quit", "q", "й", "выход", "авада кедавра");
@@ -40,7 +40,7 @@ public class UserInterface {
                 System.out.println("\nВвод некорректен. Повторите. ");
             }
         }
-        FilesOps.WriteObj(shop, FILE_NAME);
+
     }
 
     private void showAll() {
@@ -86,10 +86,9 @@ public class UserInterface {
     }
 
     private void fillShop() {
-//        shop = FilesOps.ReadObj(shop, FILE_NAME);
         shop.put(1, 2, "Резиновый утёнок", 100);
         shop.put(2, 1, "Дурилка картонная", 100);
-        shop.put(3, 6, "Конструктор \"Юный дровосек\"", 20);
+        shop.put(3, 6, "Конструктор <Юный дровосек>", 20);
         shop.put(4, 3, "Автомат АК-47 (пластик)", 85);
     }
 }

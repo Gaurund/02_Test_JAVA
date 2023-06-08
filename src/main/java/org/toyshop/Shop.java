@@ -1,6 +1,5 @@
 package org.toyshop;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -57,7 +56,7 @@ public class Shop {
     }
 
     public void put(int id, int weight, String name, int amount) {
-        if (isNull() && checkID(id)) this.toys.add(new Toy(id, weight, name, amount));
+        if (checkID(id)) this.toys.add(new Toy(id, weight, name, amount));
     }
 
     public boolean checkID(int id) {

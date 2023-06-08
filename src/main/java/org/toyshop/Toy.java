@@ -13,6 +13,7 @@ public class Toy {
         this.name = name;
         this.amount = amount;
     }
+
     @Override
     public String toString() {
         return "Артикул: " + id + ", наименование: " + name + ", вес брутто: " + weight + " кг., кол-во в наличии: " + amount + " шт.";
