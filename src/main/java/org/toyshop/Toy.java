@@ -7,16 +7,28 @@ public class Toy {
     private int amount;
     private int[] tickets;
 
-    public Toy(int id, int weight, String name, int amount) {
-        this.id = id;
-        this.weight = weight;
-        this.name = name;
-        this.amount = amount;
+    public Toy(String[] inputArray) {
+        int lastElement = inputArray.length - 1;
+
+        this.id = Integer.parseInt(inputArray[0]);
+        this.weight = Integer.parseInt(inputArray[1]);
+        this.amount = Integer.parseInt(inputArray[lastElement]);
+
+        if (lastElement > 3) {
+            for (int i = 3; i < lastElement; i++) {
+                inputArray[2] = inputArray[2] + " " + inputArray[i];
+            }
+        }
+        this.name = inputArray[2];
     }
 
     @Override
     public String toString() {
         return "Артикул: " + id + ", наименование: " + name + ", вес брутто: " + weight + " кг., кол-во в наличии: " + amount + " шт.";
+    }
+
+    public String toStoreString() {
+        return id + " " + weight + " " + name + " " + amount + ";";
     }
 
     public void setTickets(int ticketLow, int ticketHigh) {
@@ -41,5 +53,9 @@ public class Toy {
 
     public void decreaseAmount() {
         this.amount -= 1;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

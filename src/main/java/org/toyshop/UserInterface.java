@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
-    private static final String FILE_NAME = "";
+    private static final String FILE_NAME = "shop.txt";
     public static Scanner scanner = new Scanner(System.in);
     private final List<String> helpInput = Arrays.asList("help", "h", "?", "помощь", "справка");
     private final List<String> quitInput = Arrays.asList("quit", "q", "й", "выход", "авада кедавра");
@@ -19,7 +19,7 @@ public class UserInterface {
     }
 
     public void run() {
-        fillShop();
+        shop.restoreShop(FILE_NAME);
 
         boolean flag = true;
         while (flag) {
@@ -40,16 +40,12 @@ public class UserInterface {
                 System.out.println("\nВвод некорректен. Повторите. ");
             }
         }
-
+        shop.storeShop(FILE_NAME);
     }
 
     private void showAll() {
         if (!shop.isEmpty()) shop.showAll();
         else System.out.println("\nКаталог пуст.\n");
-    }
-
-    private boolean isNull() {
-        return shop != null;
     }
 
     private void givePrize() {
@@ -60,25 +56,29 @@ public class UserInterface {
         }
     }
 
-    private int inputID() {
-        while (true) {
-            System.out.println("\nВведите артикул: ");
-            int id = scanner.nextInt();
-            if (shop.checkID(id)) {
-                return id;
-            }
+    private void put() {
+        System.out.println("\nВведите одной строкой артикул, вес, наименование и количество товара (разделитель -- пробел): ");
+        String input = scanner.nextLine();
+        String[] inputArray = input.split(" ");
+        if (inputArray.length < 4) System.out.println("\nЭтого явно недостаточно. Повторите ввод.");
+        else if (checkID(inputArray[0])) {
+            shop.put(inputArray);
         }
     }
 
-    private void put() {
-        int id = inputID();
-        System.out.println("\nВведите наименование товара: ");
-        String name = scanner.next();
-        System.out.println("\nВведите сколько весит товар вместе с упаковкой: ");
-        int weight = scanner.nextInt();
-        System.out.println("\nВведите количество единиц товара: ");
-        int amount = scanner.nextInt();
-        shop.put(id, weight, name, amount);
+    public boolean checkID(String idString) {
+        int id = Integer.parseInt(idString);
+        if (id <= 0) {
+            System.out.println("\nАртикул таким быть не может. Повторите ввод. ");
+            return false;
+        }
+        for (Toy toy : shop.toys) {
+            if (toy.getID() == id) {
+                System.out.println("\nДанный артикул уже занят. Повторите ввод. ");
+                return false;
+            }
+        }
+        return true;
     }
 
     private void help() {
@@ -86,9 +86,9 @@ public class UserInterface {
     }
 
     private void fillShop() {
-        shop.put(1, 2, "Резиновый утёнок", 100);
-        shop.put(2, 1, "Дурилка картонная", 100);
-        shop.put(3, 6, "Конструктор <Юный дровосек>", 20);
-        shop.put(4, 3, "Автомат АК-47 (пластик)", 85);
+        shop.put(("1 2 Резиновый утёнок 100").split(" "));
+        shop.put(("2 1 Дурилка картонная 100").split(" "));
+        shop.put(("3 6 Конструктор <Юный дровосек> 20").split(" "));
+        shop.put(("4 3 Автомат АК-47 (пластик) 85").split(" "));
     }
 }

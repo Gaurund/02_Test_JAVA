@@ -5,21 +5,39 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 public class Shop {
-    private static final Comparator<Toy> compareID = new Comparator<Toy>() {
+    private static final Comparator<Toy> compareID = new Comparator<>() {
         @Override
         public int compare(Toy o1, Toy o2) {
             return o1.getID() - o2.getID();
         }
     };
-    private final PriorityQueue<Toy> toys;
+    public final PriorityQueue<Toy> toys;
 
     public Shop() {
         this.toys = new PriorityQueue<>(compareID);
     }
 
+    public void storeShop(String FILE_NAME) {
+        StringBuilder saveString = new StringBuilder();
+        for (Toy toy : toys) {
+            saveString.append(toy.toStoreString());
+        }
+        FilesOps.WriteFile(FILE_NAME, saveString.toString());
+    }
+
+    public void restoreShop(String FILE_NAME) {
+        String loadedString = FilesOps.ReadFile(FILE_NAME);
+        if (loadedString != null) {
+            String[] stringArray = loadedString.split(";");
+            for (String string : stringArray) {
+                put(string.split(" "));
+            }
+        }
+    }
+
     public void givePrize() {
         Toy prizeToy = roll();
-        System.out.println("Победителю достаётся игрушка: " + prizeToy.toString());
+        System.out.println("Победителю достаётся игрушка: " + prizeToy.getName());
         prizeToy.decreaseAmount();
         if (prizeToy.getAmount() == 0) {
             System.out.println("И это была последняя игрушка данного артикула. Больше в розыгрыше она не участвует.");
@@ -55,22 +73,8 @@ public class Shop {
         return ticketHigh;
     }
 
-    public void put(int id, int weight, String name, int amount) {
-        if (checkID(id)) this.toys.add(new Toy(id, weight, name, amount));
-    }
-
-    public boolean checkID(int id) {
-        if (id <= 0) {
-            System.out.println("Артикул таким быть не может. Повторите ввод. ");
-            return false;
-        }
-        for (Toy toy : toys) {
-            if (toy.getID() == id) {
-                System.out.println("Данный артикул уже занят. Повторите ввод. ");
-                return false;
-            }
-        }
-        return true;
+    public void put(String[] inputArray) {
+        this.toys.add(new Toy(inputArray));
     }
 
     public void showAll() {
@@ -83,7 +87,4 @@ public class Shop {
         return toys.isEmpty();
     }
 
-    public boolean isNull() {
-        return toys != null;
-    }
 }
