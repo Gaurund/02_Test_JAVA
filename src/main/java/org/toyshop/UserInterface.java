@@ -44,13 +44,14 @@ public class UserInterface {
         shop.storeShop(FILE_NAME);
     }
 
-    private void greetings(){
+    private void greetings() {
         System.out.println("\nЗдравствуйте!\nСегодня наш магазин проводит аттракцион неслыханной щедрости!\nМы разыгрываем игрушки и раздаём их безвозмездно.\n");
         if (!shop.isEmpty()) {
             System.out.println("Наш текущий ассортимент: ");
             showAll();
         }
     }
+
     private void showAll() {
         if (!shop.isEmpty()) shop.showAll();
         else System.out.println("\nКаталог пуст.\n");
@@ -65,7 +66,7 @@ public class UserInterface {
     }
 
     private void put() {
-        System.out.println("\nВведите одной строкой артикул, вес, наименование и количество товара (разделитель -- пробел): ");
+        System.out.println("\nВведите одной строкой артикул, вес, количество товара и наименование (разделитель -- пробел): ");
         String input = scanner.nextLine();
         String[] inputArray = input.split(" ");
         if (inputArray.length < 4) System.out.println("\nЭтого явно недостаточно. Повторите ввод.");
