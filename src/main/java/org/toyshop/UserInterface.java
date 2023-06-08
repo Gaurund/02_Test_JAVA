@@ -22,15 +22,14 @@ public class UserInterface {
         shop.restoreShop(FILE_NAME);
         greetings();
 
-        boolean flag = true;
-        while (flag) {
+        while (true) {
             System.out.println("\nВведите запрос, например \"справка\" или \"выход\": ");
             String input = scanner.nextLine().strip().toLowerCase();
             if (helpInput.contains(input)) {
                 help();
             } else if (quitInput.contains(input)) {
                 System.out.println("\"Лавка Чудачеств\" прощается с вами!");
-                flag = false;
+                break;
             } else if (addingInput.contains(input)) {
                 put();
             } else if (rollingInput.contains(input)) {
