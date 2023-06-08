@@ -20,6 +20,7 @@ public class UserInterface {
 
     public void run() {
         shop.restoreShop(FILE_NAME);
+        greetings();
 
         boolean flag = true;
         while (flag) {
@@ -43,6 +44,13 @@ public class UserInterface {
         shop.storeShop(FILE_NAME);
     }
 
+    private void greetings(){
+        System.out.println("\nЗдравствуйте!\nСегодня наш магазин проводит аттракцион неслыханной щедрости!\nМы разыгрываем игрушки и раздаём их безвозмездно.\n");
+        if (!shop.isEmpty()) {
+            System.out.println("Наш текущий ассортимент: ");
+            showAll();
+        }
+    }
     private void showAll() {
         if (!shop.isEmpty()) shop.showAll();
         else System.out.println("\nКаталог пуст.\n");
@@ -83,12 +91,5 @@ public class UserInterface {
 
     private void help() {
         System.out.println("\nИспользуйте следующие команды:\n\t\"выход\" для выхода из программы;\n\t\"каталог\" для просмотра существующего каталога игрушек;\n\t\"добавить\" для ввода новой позиции в каталоге;\n\t\"розыгрыш\" для проведения безвозмездного розыгрыша.\n");
-    }
-
-    private void fillShop() {
-        shop.put(("1 2 Резиновый утёнок 100").split(" "));
-        shop.put(("2 1 Дурилка картонная 100").split(" "));
-        shop.put(("3 6 Конструктор <Юный дровосек> 20").split(" "));
-        shop.put(("4 3 Автомат АК-47 (пластик) 85").split(" "));
     }
 }
